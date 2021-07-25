@@ -6,15 +6,19 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
+import java.time.LocalDateTime
 
 
-interface ArticleRepository : CrudRepository<Article, Long> {
-    fun findBySlug(slug: String): Article?
-    fun findAllByOrderByAddedAtDesc(): Iterable<Article>
-    fun findByAuthor(author: Author): Iterable<Article>
+interface ArticleRepository : JpaRepository<Article, Long> {
+
+    @Query("SELECT * FROM Article WHERE slug = :slug ORDER BY id DESC LIMIT 1",nativeQuery = true)
+    fun findBySlug(@Param("slug") slug: String): Article?
+    fun findAllByOrderByAddedAtDesc(): List<Article>
+    fun findByAuthor(author: Author): List<Article>
+    fun findByAddedAtBetween(debut: LocalDateTime, fin: LocalDateTime): List<Article>
 }
 
-interface AuthorRepository : CrudRepository<Author, Long> {
+interface AuthorRepository : JpaRepository<Author, Long> {
     fun findByLogin(login: String): Author?
 }
 

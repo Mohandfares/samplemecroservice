@@ -1,11 +1,17 @@
 package com.dz.mecroservice.samplemecroservice.Ext
 
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
 import java.util.*
 
 fun LocalDateTime.format() = this.format(englishDateFormatter)
+
+fun String.toLocalDate(): LocalDateTime {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    return LocalDateTime.parse(this, formatter)
+}
 
 private val daysLookup = (1..31).associate { it.toLong() to getOrdinal(it) }
 
@@ -25,7 +31,7 @@ private fun getOrdinal(n: Int) = when {
     else -> "${n}th"
 }
 
-fun String.toSlug() = toLowerCase()
+fun String.toSlug() = lowercase()
     .replace("\n", " ")
     .replace("[^a-z\\d\\s]".toRegex(), " ")
     .split(" ")

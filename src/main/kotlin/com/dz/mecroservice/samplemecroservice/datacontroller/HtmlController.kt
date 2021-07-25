@@ -25,6 +25,7 @@ class HtmlController(
     }
 
     fun Article.render() = RenderedArticle(
+        id,
         slug,
         title,
         headline,
@@ -34,6 +35,7 @@ class HtmlController(
     )
 
     data class RenderedArticle(
+        val id: Long?,
         val slug: String,
         val title: String,
         val headline: String,

@@ -1,5 +1,6 @@
 package com.dz.mecroservice.samplemecroservice.service.impl
 
+
 import com.dz.mecroservice.samplemecroservice.bo.Author
 import com.dz.mecroservice.samplemecroservice.repository.AuthorRepository
 import com.dz.mecroservice.samplemecroservice.service.IAuthorService
@@ -32,8 +33,16 @@ class AuthorService(
         }
     }
 
+    override fun findById(id: Long): Author {
+        return if (repository.existsById(id)) {
+            repository.findById(id).get()
+        } else {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "This id Author does not exist")
+        }
+    }
+
     override fun findAll(): List<Author> =
-            repository.findAll().toList()
+            repository.findAll()
 
     override fun findByLogin(login: String): Author? =
             repository.findByLogin(login) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "This user does not exist")

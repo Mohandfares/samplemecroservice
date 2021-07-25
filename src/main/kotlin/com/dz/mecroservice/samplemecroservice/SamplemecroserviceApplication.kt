@@ -8,7 +8,7 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @EnableConfigurationProperties(BlogProperties::class)
-@OpenAPIDefinition(info = Info(title = "blog API", version = "1.0.0", description = ""))
+@OpenAPIDefinition(info = Info(title = "blog API", version = "1.1.0", description = ""))
 class SamplemecroserviceApplication
 
 fun main(args: Array<String>) {

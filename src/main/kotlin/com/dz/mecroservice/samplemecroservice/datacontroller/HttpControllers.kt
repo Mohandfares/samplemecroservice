@@ -18,13 +18,23 @@ class ArticleController {
     @GetMapping("/")
     fun findAll() = repository.findAllByOrderByAddedAtDesc()
 
-    @GetMapping("/{slug}")
+    @GetMapping("/findBySlug/{slug}")
     fun findOne(@PathVariable slug: String) =
         repository.findBySlug(slug)
+
+    @GetMapping("/findById/{id}")
+    fun findById(@PathVariable id: Long) =
+        repository.findById(id)
 
     @GetMapping("/articlesByUser/{idAuthor}")
     fun findByAuthor(@PathVariable idAuthor: Long) =
         repository.findByAuthor(idAuthor)
+
+    @GetMapping("/addedAtBetween/{debut}/{fin}")
+    fun findByAddedAtBetween(
+        @PathVariable debut: String,
+        @PathVariable fin: String
+    ) = repository.findByAddedAtBetween(debut, fin)
 
     @PostMapping("/save")
     fun save(@RequestBody article: Article): Article =
@@ -52,9 +62,13 @@ class AuthorController {
     @GetMapping("/")
     fun findAll() = repository.findAll()
 
-    @GetMapping("/{login}")
+    @GetMapping("/findByLogin/{login}")
     fun findOne(@PathVariable login: String) =
         repository.findByLogin(login)
+
+    @GetMapping("/findById/{id}")
+    fun findById(@PathVariable id: Long) =
+        repository.findById(id)
 
     @PostMapping("/save")
     fun save(@RequestBody user: Author): Author =
