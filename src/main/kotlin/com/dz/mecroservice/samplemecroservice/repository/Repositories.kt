@@ -21,8 +21,3 @@ interface ArticleRepository : JpaRepository<Article, Long> {
 interface AuthorRepository : JpaRepository<Author, Long> {
     fun findByLogin(login: String): Author?
 }
-
-interface AuthorJpaRepository : JpaRepository<Author, Long> {
-    @Query("FROM Author WHERE login = :login")
-    fun findAllByLogin(@Param("login") login: String): List<Author>
-}

@@ -84,12 +84,3 @@ class AuthorController {
     fun delete(@PathVariable id: Long): String =
             repository.delete(id)
 }
-
-@RestController
-@RequestMapping("/api/authorjpa")
-class AuthorJpaController(val repository: AuthorJpaRepository) {
-
-    @GetMapping("/{login}")
-    fun findAllByLogin(@PathVariable login: String): List<Author> =
-        repository.findAllByLogin(login)
-}
